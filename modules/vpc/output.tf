@@ -1,10 +1,8 @@
 output "vpc_id" {
-    description = "VPC id"
     value = aws_vpc.main_vpc.id
 }
 
 output "vpc_cidr_block" {
-    description = "VPC cidr"
     value = aws_vpc.main_vpc.cidr_block
 }
 
@@ -46,5 +44,9 @@ output "vpc_ipv6_cidr_block" {
 
 output "vpc_main_route_table_id" {
     value = aws_vpc.main_vpc.main_route_table_id
+}
+
+output "vpc_tags" {
+    value = aws_vpc.main_vpc.tags
 }
 
