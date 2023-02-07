@@ -46,3 +46,7 @@ output "vpc_ipv6_cidr_block" {
 output "vpc_main_route_table_id" {
   value = module.vpc.vpc_main_route_table_id
 }
+
+output "vpc_tags" {
+  value = module.vpc.vpc_tags
+}
