@@ -1,11 +1,15 @@
+data "aws_region" "current" {}
+
 locals {
-  region = "us-east-1"
+  region = data.aws_region.current.id
 }
 
 module "vpc" {
-  source              = "./modules/vpc"
-  cidr                = "10.16.0.0/16"
-  ipv4_netmask_length = 20
+  source               = "./modules/vpc"
+  cidr                 = "10.16.0.0/16"
+  ipv4_netmask_length  = 20
+  enable_dns_hostnames = true
+  enable_dns_support   = true
 }
 
 module "subnet" {
@@ -18,13 +22,13 @@ module "subnet" {
   public_subnets                  = ["10.16.48.0/20", "10.16.112.0/20", "10.16.176.0/20"]
   assign_ipv6_address_on_creation = true
 
-  reserved_subnet_names    = ["Reserved_Tier_A", "Reserved_Tier_B", "Reserved_Tier_C"]
-  private_subnet_names_db  = ["Db_A", "Db_B", "Db_C"]
-  private_subnet_names_app = ["App_A", "App_B", "App_C"]
-  public_subnet_names      = ["Web_A", "Web_B", "Web_C"]
+  reserved_subnet_names    = ["Reserved_Tier_AZ_A", "Reserved_Tier_AZ_B", "Reserved_Tier_AZ_C"]
+  private_subnet_names_db  = ["Db_AZ_A", "Db_AZ_B", "Db_AZ_C"]
+  private_subnet_names_app = ["App_AZ_A", "App_AZ_B", "App_AZ_C"]
+  public_subnet_names      = ["Web_AZ_A", "Web_AZ_B", "Web_AZ_C"]
 
 
-  azs = ["${local.region}a", "${local.region}b", "${local.region}c"]
+  azs = ["${data.aws_region.current.id}a", "${data.aws_region.current.id}b", "${data.aws_region.current.id}c"]
 }
 
     
