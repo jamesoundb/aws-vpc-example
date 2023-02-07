@@ -18,13 +18,14 @@ resource "aws_vpc_ipam_pool_cidr" "main" {
 }
 
 resource "aws_vpc" "main_vpc" {
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support = var.enable_dns_support
   ipv4_ipam_pool_id   = aws_vpc_ipam_pool.main.id
   ipv4_netmask_length = var.ipv4_netmask_length
-#   cidr_block = var.cidr_block
   depends_on = [
     aws_vpc_ipam_pool_cidr.main
   ]
   tags = {
-    Name = "Main"
+    Name = "Web-App-Db-${var.vpc_tags}"
   }
 }
