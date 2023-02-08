@@ -39,9 +39,3 @@ variable "vpc_tags" {
   type        = string
   default     = "3-tier"
 }
-
-variable "ipv4_ipam_tags" {
-  description = "Tags for ipv4 ipam resources"
-  type = string
-  default = "ipv4_ipam"
-}
