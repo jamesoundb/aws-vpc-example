@@ -12,7 +12,7 @@ resource "aws_vpc" "main_vpc" {
     aws_vpc_ipam_pool_cidr.ipv6_public
   ]
   tags = {
-    Name = "Web-App-Db-${var.vpc_tags}"
+    Name = "${var.vpc_tags}"
   }
 }
 
@@ -21,8 +21,8 @@ resource "aws_vpc_ipam" "main" {
     region_name = data.aws_region.current.name
   }
   tags = {
-    Name = "vpc_ipam_main"
-    }
+    Name = "${var.vpc_tags}"
+  }
 }
 
 resource "aws_vpc_ipam_pool" "ipv4" {
@@ -30,14 +30,13 @@ resource "aws_vpc_ipam_pool" "ipv4" {
   ipam_scope_id  = aws_vpc_ipam.main.private_default_scope_id
   locale         = data.aws_region.current.name
   tags = {
-    "Name" = "ipv4_ipam"
+    Name = "${var.vpc_tags}"
   }
 }
 
 resource "aws_vpc_ipam_pool_cidr" "ipv4" {
   ipam_pool_id = aws_vpc_ipam_pool.ipv4.id
   cidr         = var.cidr
-
 }
 
 resource "aws_vpc_ipam_pool" "ipv6_public" {
@@ -45,6 +44,9 @@ resource "aws_vpc_ipam_pool" "ipv6_public" {
   ipam_scope_id                     = aws_vpc_ipam.main.public_default_scope_id
   allocation_default_netmask_length = var.ipv6_netmask_length
   locale                            = data.aws_region.current.name
+  tags = {
+    Name = "${var.vpc_tags}"
+  }
 }
 
 resource "aws_vpc_ipam_pool_cidr" "ipv6_public" {
