@@ -3,8 +3,7 @@ output "vpc_id" {
 }
 
 output "vpc_cidr_block" {
-  description = "VPC cidr"
-  value       = module.vpc.vpc_cidr_block
+  value = module.vpc.vpc_cidr_block
 }
 
 output "vpc_default_network_acl_id" {
