@@ -1,5 +1,6 @@
 data "aws_region" "current" {}
 
+############################################################ VPC RESOURCES #################################################
 resource "aws_vpc" "main_vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
@@ -51,4 +52,19 @@ resource "aws_vpc_ipam_pool" "ipv6_public" {
 
 resource "aws_vpc_ipam_pool_cidr" "ipv6_public" {
   ipam_pool_id = aws_vpc_ipam_pool.ipv6_public.id
+}
+
+############################################################ INTERNET GATEWAY RESOURCES #################################################
+
+resource "aws_internet_gateway_attachment" "main" {
+  internet_gateway_id = aws_internet_gateway.main.id
+  vpc_id = aws_vpc.main_vpc.id
+  
+}
+
+resource "aws_internet_gateway" "main" {
+  tags = {
+    Name = "${var.vpc_tags}"
+  }
+  
 }
