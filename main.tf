@@ -5,18 +5,14 @@ locals {
 }
 
 module "vpc" {
-  source               = "./modules/vpc"
-  cidr                 = "10.16.0.0/16"
-  ipv4_netmask_length  = 20
-  ipv6_netmask_length  = 56
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-}
-
-module "subnet" {
+  source                          = "./vpc"
+  cidr                            = "10.16.0.0/16"
+  ipv4_netmask_length             = 20
+  ipv6_netmask_length             = 56
+  enable_dns_hostnames            = true
+  enable_dns_support              = true
   cidr_block                      = "10.16.0.0/20"
   vpc_id                          = module.vpc.vpc_id
-  source                          = "./modules/subnet"
   reserved_subnets                = ["10.16.0.0/20", "10.16.64.0/20", "10.16.128.0/20"]
   private_subnets_db              = ["10.16.16.0/20", "10.16.80.0/20", "10.16.144.0/20"]
   private_subnets_app             = ["10.16.32.0/20", "10.16.96.0/20", "10.16.160.0/20"]
@@ -31,5 +27,3 @@ module "subnet" {
 
   azs = ["${data.aws_region.current.id}a", "${data.aws_region.current.id}b", "${data.aws_region.current.id}c"]
 }
-
-    
