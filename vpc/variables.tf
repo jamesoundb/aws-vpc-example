@@ -109,13 +109,13 @@ variable "vpc_tags" {
 variable "public_route_web" {
   description = "Public route tags"
   type        = string
-  default     = "public"
+  default     = "public_route_web"
 }
 
 variable "private_route_db" {
   description = "Private route tags for db"
   type        = string
-  default     = "private_db"
+  default     = "private_route_db"
 }
 
 variable "private_route_app" {
